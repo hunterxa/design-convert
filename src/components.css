@@ -1,0 +1,108 @@
+/*** SettingsCard Component Styles ***/
+.settings-card {
+  margin: 5rem;
+  box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
+  height: 16rem;
+  position: relative;
+  padding-top: 1rem;
+  min-width: 600px;
+}
+
+.settings-card-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.settings-card-base-unit {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.settings-card-root-text {
+  margin: 0 0 0.125rem 0;
+  color: #000000BA
+}
+
+.settings-card-base-text {
+  display: flex;
+  background-color: #ED4747;
+  color: #F6F4F3;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.settings-card-base-equal {
+  margin: 0 0 0 0.15rem;
+}
+
+.settings-card-base-input {
+  width: 1.5rem;
+  border: none;
+  text-align: center;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.settings-card-base-input:focus {
+  outline: none;
+}
+
+.settings-card-unit-selectors {
+
+}
+
+.settings-card-unit-selector {
+  width: 4rem;
+  border: none;
+  padding: 0.5rem 0;
+  color: #F6F4F3;
+}
+
+.settings-card-unit-selector:hover {
+  cursor: pointer;
+}
+
+#px-selector {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+#rem-selector {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.settings-card-info-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.settings-card-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12rem;
+  height: 6rem;
+  border-radius: 1rem;
+}
+
+/*** SelectedCard Component Styles ***/
+.selected-card {
+  display: flex;
+}
+
+.value-input {
+  width: 3rem;
+  border: none;
+  text-align: center;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.value-input:focus {
+  outline: none;
+}
