@@ -6,6 +6,10 @@
   position: relative;
   padding-top: 1rem;
   min-width: 600px;
+  max-width: 720px;
+  background-color: #F6F4F3;
+  margin: 0 auto;
+  border-radius: 1rem;
 }
 
 .settings-card-bar {
@@ -101,4 +105,15 @@
 
 .value-input:focus {
   outline: none;
+}
+
+/*** Sidebar Component Styles ***/
+.sidebar {
+  width: 11rem;
+  margin-left: 0.5rem;
+  border-right: 0.125rem solid #C66E6E;
+}
+
+.sidebar-title {
+  color: #000000BA;
 }

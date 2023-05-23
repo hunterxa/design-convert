@@ -1,3 +1,18 @@
 .app {
   background-color: #F6F4F3;
+  display: flex;
+  min-height: 100vh;
+}
+
+.content {
+  width: 100%
+}
+
+.settings-container {
+  background-color: #D4939380;
+  padding: 3rem 1rem;
+}
+
+.saved-container-title {
+  color: #000000BA;
 }

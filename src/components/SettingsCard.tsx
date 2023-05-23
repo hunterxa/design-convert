@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react'
+import { BsArrowLeftRight } from 'react-icons/bs'
 import SelectedCard from './SelectedCard'
 import { UNIT } from '../utils/enums'
 import { convertPxToRem, convertRemToPx } from '../utils/conversion'
-import { BsArrowLeftRight } from 'react-icons/bs'
+import { 
+  selectedButtonStyle,
+  unselectedButtonStyle,
+  selectedCardStyle,
+  unselectedCardStyle
+} from '../utils/dynamicStyles'
 import '../components.css'
 
 export default function SettingsCard() {
@@ -10,24 +16,6 @@ export default function SettingsCard() {
   const [base, setBase] = useState(16)
   const [pxValue, setPxValue] = useState(base)
   const [remValue, setRemValue] = useState(convertPxToRem(base, pxValue))
-
-  const selectedButtonStyle = {
-    backgroundColor: '#E96262',
-    boxShadow: '0 0.25rem 0.25rem 0 #00000040 inset',
-    textDecoration: 'underline',
-  }
-
-  const unselectedButtonStyle = {
-    backgroundColor: '#EA52524A',
-  }
-
-  const selectedCardStyle = {
-    backgroundColor: '#E96262',
-  }
-
-  const unselectedCardStyle = {
-    backgroundColor: '#EA52524A',
-  }
 
   //Handler functions to handle input changes in the SelectedCardComponents
   //When input is empty or non-numbers entered, set value to 0 to avoid errors

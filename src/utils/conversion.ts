@@ -1,9 +1,9 @@
 export function convertPxToRem(base: number, value: number): number {
-  return value / base;
+  return roundToTwoDecimals(value / base);
 } 
 
 export function convertRemToPx(base: number, value: number): number {
-  return value * base;
+  return roundToTwoDecimals(value * base);
 }
 
 export function roundToTwoDecimals(value: number): number {
