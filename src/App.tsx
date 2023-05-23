@@ -1,13 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import SettingsCard from './components/SettingsCard'
 import SavedConversion from './components/SavedConversion'
 import { Conversion } from './utils/interfaces'
+import { saveConversionsToStorage, getConversionsFromStorage } from './utils/storage'
 import './App.css'
 
 function App() {
 
-  const [savedConversions, setSavedConversions] = useState<Conversion[]>([])  
+  const [savedConversions, setSavedConversions] = useState<Conversion[]>(getConversionsFromStorage())
+
+  //Save conversions to local storage when the savedConversions state changes
+  useEffect(() => {
+    saveConversionsToStorage(savedConversions)
+  }, [savedConversions])
 
   //Function to save a conversion when the user clicks the save button
   //Is passed to the SettingsCard component, where the save button lives
