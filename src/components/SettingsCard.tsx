@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SelectedCard from './SelectedCard'
 import { UNIT } from '../utils/enums'
+import { convertPxToRem, convertRemToPx } from '../utils/conversion'
 import { BsArrowLeftRight } from 'react-icons/bs'
 import '../components.css'
 
 export default function SettingsCard() {
   const [unit, setUnit] = useState(UNIT.PX)
   const [base, setBase] = useState(16)
-  const [value, setValue] = useState(base)
+  const [pxValue, setPxValue] = useState(base)
+  const [remValue, setRemValue] = useState(convertPxToRem(base, pxValue))
 
   const selectedButtonStyle = {
     backgroundColor: '#E96262',
@@ -27,6 +29,43 @@ export default function SettingsCard() {
     backgroundColor: '#EA52524A',
   }
 
+  //Handler functions to handle input changes in the SelectedCardComponents
+  //When input is empty or non-numbers entered, set value to 0 to avoid errors
+  const handlePxValueChange = (e: any) => {
+    if (isNaN(e.target.value) || e.target.value === "") {
+      setPxValue(0)
+    } else {
+      setPxValue(parseInt(e.target.value))
+    }
+  }
+
+  const handleRemValueChange = (e: any) => {
+    if (isNaN(e.target.value) || e.target.value === "") {
+      setRemValue(0)
+    } else {
+      setRemValue(parseFloat(e.target.value))
+    }
+  }
+
+  //Handeler function to handle input changes in the base font size input
+  //When input is empty or non-numbers entered, set value to 16 to avoid errors
+  const handleBaseChange = (e: any) => {
+    if (isNaN(e.target.value) || e.target.value === "") {
+      setBase(16)
+    } else {
+      setBase(parseInt(e.target.value))
+    }
+  }
+
+  //Update remValue state when pxValue state changes and vice versa
+  useEffect(() => {
+    if (unit === UNIT.PX) {
+      setRemValue(convertPxToRem(base, pxValue))
+    } else {
+      setPxValue(convertRemToPx(base, remValue))
+    }
+  }, [pxValue, remValue])
+
   return (
     <div className="settings-card">
       <div className="settings-card-base-unit">
@@ -37,7 +76,7 @@ export default function SettingsCard() {
             className="settings-card-base-input"
             type="text"
             defaultValue={base}
-            onChange = {(e) => setBase(parseInt(e.target.value))}
+            onChange = {(e) => handleBaseChange(e)}
           ></input>
         <p className="settings-card-base-equal">px = 1 rem</p>
         </div>
@@ -70,11 +109,11 @@ export default function SettingsCard() {
           {
             unit === UNIT.PX
             ? <SelectedCard 
-                value={value}
-                handleChange={(e) => setValue(parseInt(e.target.value))}
+                value={pxValue}
+                handleChange={(e) => handlePxValueChange(e)}
                 unit='px'
               />
-            : <p>{value} px</p>
+            : <p>{convertRemToPx(base, remValue)} px</p>
           }
         </div>
         <BsArrowLeftRight size={"2rem"} color={"#000000BA"}/>
@@ -85,11 +124,11 @@ export default function SettingsCard() {
           {
             unit === UNIT.REM
             ? <SelectedCard 
-                value={value}
-                handleChange={(e) => setValue(parseInt(e.target.value))}
+                value={remValue}
+                handleChange={(e) => handleRemValueChange(e)}
                 unit='rem'
               />
-            : <p>{value} rem</p>
+            : <p>{convertPxToRem(base, pxValue)} rem</p>
           }
         </div>
       </div>
