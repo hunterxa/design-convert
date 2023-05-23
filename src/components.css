@@ -2,7 +2,7 @@
 .settings-card {
   margin: 5rem;
   box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
-  height: 16rem;
+  height: 15rem;
   position: relative;
   padding-top: 1rem;
   min-width: 600px;
@@ -90,13 +90,40 @@
   border-radius: 1rem;
 }
 
+.settings-card-bottom-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.settings-card-save-button {
+  width: 5rem;
+  height: 2rem;
+  background-color: #ED4747;
+  color: #F6F4F3;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.settings-card-save-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.settings-card-save-button:active {
+  transform: translateY(0.125rem);
+  box-shadow: none;
+}
+
 /*** SelectedCard Component Styles ***/
 .selected-card {
   display: flex;
 }
 
 .value-input {
-  width: 3rem;
+  width: 4.5rem;
+  height: 2.5rem;
   border: none;
   text-align: center;
   border-radius: 0.5rem;
@@ -105,6 +132,12 @@
 
 .value-input:focus {
   outline: none;
+}
+
+.selected-card-unit {
+  margin: 0 0 0 0.5rem;
+  color: #F6F4F3;
+  font-size: 1.5rem;
 }
 
 /*** Sidebar Component Styles ***/
@@ -116,4 +149,56 @@
 
 .sidebar-title {
   color: #000000BA;
+}
+
+/***  SavedConversion Components Styles ***/
+.saved-conversion {
+  display: flex;
+}
+
+.saved-conversion-values {
+  min-width: 10.4rem
+}
+
+.saved-value {
+  border: none;
+  color: #F6F4F3;
+  width: 5.2rem;
+  height: 2rem;
+}
+
+.saved-value:hover {
+  cursor: pointer;
+}
+
+.saved-conversion-px {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.saved-conversion-rem {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.saved-conversion-button {
+  border: none;
+  background-color: #ED4747;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.saved-conversion-button:hover {
+  cursor: pointer;
+}
+
+.saved-conversion-button:active {
+  transform: translateY(0.125rem);
+  box-shadow: none;
+}
+
+.saved-conversion-copy {
+  margin-left: 1rem;
+}
+
+.saved-conversion-delete {
+  margin-left: 0.6rem;
 }

@@ -11,32 +11,38 @@ import {
 } from '../utils/dynamicStyles'
 import '../components.css'
 
-export default function SettingsCard() {
+export default function SettingsCard({saveConversion}: 
+  {saveConversion: (pxValue: number, remValue: number) => void}) {
+
   const [unit, setUnit] = useState(UNIT.PX)
   const [base, setBase] = useState(16)
   const [pxValue, setPxValue] = useState(base)
   const [remValue, setRemValue] = useState(convertPxToRem(base, pxValue))
 
   //Handler functions to handle input changes in the SelectedCardComponents
-  //When input is empty or non-numbers entered, set value to 0 to avoid errors
+  //When input is empty or non-numbers entered, set value to 0 to avoid divide-by-zero errors
   const handlePxValueChange = (e: any) => {
     if (isNaN(e.target.value) || e.target.value === "") {
       setPxValue(0)
+      setRemValue(0)
     } else {
       setPxValue(parseInt(e.target.value))
+      setRemValue(convertPxToRem(base, parseInt(e.target.value)))
     }
   }
 
   const handleRemValueChange = (e: any) => {
     if (isNaN(e.target.value) || e.target.value === "") {
       setRemValue(0)
+      setPxValue(0)
     } else {
       setRemValue(parseFloat(e.target.value))
+      setPxValue(convertRemToPx(base, parseFloat(e.target.value)))
     }
   }
 
   //Handeler function to handle input changes in the base font size input
-  //When input is empty or non-numbers entered, set value to 16 to avoid errors
+  //When input is empty or non-numbers entered, set value to 16 to avoid type errors
   const handleBaseChange = (e: any) => {
     if (isNaN(e.target.value) || e.target.value === "") {
       setBase(16)
@@ -45,21 +51,11 @@ export default function SettingsCard() {
     }
   }
 
-  //Update remValue state when pxValue state changes and vice versa
-  useEffect(() => {
-    if (unit === UNIT.PX) {
-      setRemValue(convertPxToRem(base, pxValue))
-    } else {
-      setPxValue(convertRemToPx(base, remValue))
-    }
-  }, [pxValue, remValue])
-
   return (
     <div className="settings-card">
       <div className="settings-card-base-unit">
         <p className="settings-card-root-text">root font size</p>
         <div className="settings-card-base-text">
-          {/* TODO: set this to be able to be null and handle that case */}
           <input 
             className="settings-card-base-input"
             type="text"
@@ -101,7 +97,7 @@ export default function SettingsCard() {
                 handleChange={(e) => handlePxValueChange(e)}
                 unit='px'
               />
-            : <p>{convertRemToPx(base, remValue)} px</p>
+            : <p>{pxValue} px</p>
           }
         </div>
         <BsArrowLeftRight size={"2rem"} color={"#000000BA"}/>
@@ -116,9 +112,17 @@ export default function SettingsCard() {
                 handleChange={(e) => handleRemValueChange(e)}
                 unit='rem'
               />
-            : <p>{convertPxToRem(base, pxValue)} rem</p>
+            : <p>{remValue} rem</p>
           }
         </div>
+      </div>
+      <div className="settings-card-bottom-row">
+        <button
+          className="settings-card-save-button"
+          onClick={() => saveConversion(pxValue, remValue)}
+        >
+          save
+        </button>
       </div>
     </div>
   )
