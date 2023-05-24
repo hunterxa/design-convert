@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { RiDeleteBin4Line } from 'react-icons/ri'
 import Sidebar from './components/Sidebar'
 import SettingsCard from './components/SettingsCard'
 import SavedConversion from './components/SavedConversion'
-import { Conversion, Project } from './utils/interfaces'
+import { Project } from './utils/interfaces'
 import { getProjectsFromStorage, saveProjectsToStorage } from './utils/storage'
 import './App.css'
 
@@ -14,6 +16,12 @@ function App() {
   //Special styling applied to that project and it's saved conversions are loaded
   //Loading first project by default
   const [selectedProjectId, setSelectedProjectId] = useState<number>(savedProjects[0].id)
+
+  //When the user clicks the delete button, confirm and cancel buttons will appear
+  //This state is used to toggle those buttons
+  const [showDeleteOptions, setShowDeleteOptions] = useState<boolean>(false)
+
+  const [parent, enableAnimations] = useAutoAnimate<HTMLDivElement>()
 
   //Save conversions to local storage when the savedConversions state changes
   useEffect(() => {
@@ -58,8 +66,8 @@ function App() {
 
   const createNewProject = () => {
     const newProject: Project = {
-      id: savedProjects.length,
-      name: `Project ${savedProjects.length + 1}`,
+      id: savedProjects[savedProjects.length - 1].id + 1,
+      name: 'New Project',
       conversions: []
     }
     setSavedProjects(prevSavedProjects => [...prevSavedProjects, newProject])
@@ -67,11 +75,22 @@ function App() {
   }
 
   const deleteProject = (id: number) => {
-    
+    setSavedProjects(prevSavedProjects => prevSavedProjects.filter(project => project.id !== id))
+    setSelectedProjectId(savedProjects[0].id)
+    setShowDeleteOptions(false)
+  }
+
+  const getSelectedProjectConversions = () => {
+    const selectedProject = savedProjects.find(project => project.id === selectedProjectId)
+    if (selectedProject) {
+      return selectedProject.conversions
+    } else {
+      return []
+    }
   }
 
   //Get conversions array from the selected project and map it to a list of SavedConversion components
-  const savedConversionsList = savedProjects[selectedProjectId].conversions.map((conversion, index) => {
+  const savedConversionsList = getSelectedProjectConversions().map((conversion, index) => {
     return (
       <SavedConversion 
         key={index}
@@ -82,6 +101,19 @@ function App() {
       />
     )
   })
+
+  //Small component with confirmation and cancel buttons
+  //Only shown when delete button is clicked
+  const DeleteOptions = () => {
+    return (
+      <div className="delete-options">
+        <button className="delete-options-confirm project-button" onClick={() => deleteProject(selectedProjectId)}>
+          <RiDeleteBin4Line color="#F6F4F3" size="1.1rem" />  confirm
+        </button>
+        <button className="delete-options-cancel" onClick={() => setShowDeleteOptions(false)}>cancel</button>
+      </div>
+    )
+  }
 
   return (
     <div className="app">
@@ -97,9 +129,18 @@ function App() {
         <div className="saved-container">
           <div className="saved-container-top-bar">
             <h2 className="saved-container-title">saved values</h2>
-            <div className="project-buttons">
-              <button className="project-button new-project" onClick={createNewProject}>new project</button>  
-              <button className="project-button delete-project">delete project</button>
+            <div ref={parent} className="project-buttons">
+              <button className="project-button new-project" onClick={createNewProject}>new project</button>
+              {/* Only show delete button when there is more than one project */}
+              { savedProjects.length > 1 && (
+                <button
+                  className="project-button delete-project"
+                  onClick={() => setShowDeleteOptions(true)}
+                >
+                    delete project
+                </button>
+              )}
+              { showDeleteOptions && <DeleteOptions /> } 
             </div>
           </div>
           <div className="saved-container-grid">

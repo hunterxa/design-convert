@@ -52,6 +52,18 @@
   box-shadow: 0 0.0625rem 0.0625rem #00000040;
 }
 
+.delete-options-cancel {
+  background-color: #f4f3f3;
+  color: #000000BA;
+  border: none;
+  height: 2.5rem;
+  width: 8rem;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.125rem #00000040;
+  margin-left: 1rem;
+}
+
 .saved-container-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));

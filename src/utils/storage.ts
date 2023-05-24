@@ -41,8 +41,8 @@ export function getProjectsFromStorage(): Project[] {
         console.log("No projects found in local storage")
         //if no projects found, return an array with a default project
         return [{
-            id: 0,
-            name: "Project 1",
+            id: 1,
+            name: "New Project",
             conversions: []
         }];
     } else {
@@ -51,8 +51,8 @@ export function getProjectsFromStorage(): Project[] {
       } catch (error) {
         console.error("Could not parse saved projects from local storage:", error)
         return [{
-          id: 0,
-          name: "Project 1",
+          id: 1,
+          name: "New Project",
           conversions: []
       }];
       }
