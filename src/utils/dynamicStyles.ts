@@ -17,3 +17,8 @@ export const unselectedCardStyle = {
   color: '#F6F4F3',
   fontSize: '1.5rem'
 }
+
+export const selectedTabStyle = {
+  backgroundColor: '#F4E6E6',
+  boxShadow: 'inset 0px 4px 4px rgba(0, 0, 0, 0.25)'
+}

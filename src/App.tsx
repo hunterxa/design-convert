@@ -2,32 +2,72 @@ import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import SettingsCard from './components/SettingsCard'
 import SavedConversion from './components/SavedConversion'
-import { Conversion } from './utils/interfaces'
-import { saveConversionsToStorage, getConversionsFromStorage } from './utils/storage'
+import { Conversion, Project } from './utils/interfaces'
+import { getProjectsFromStorage, saveProjectsToStorage } from './utils/storage'
 import './App.css'
 
 function App() {
 
-  const [savedConversions, setSavedConversions] = useState<Conversion[]>(getConversionsFromStorage())
+  const [savedProjects, setSavedProjects] = useState<Project[]>(getProjectsFromStorage())
+
+  //Keeping track of which project is selected in the sidebar
+  //Special styling applied to that project and it's saved conversions are loaded
+  //Loading first project by default
+  const [selectedProjectId, setSelectedProjectId] = useState<number>(savedProjects[0].id)
 
   //Save conversions to local storage when the savedConversions state changes
   useEffect(() => {
-    saveConversionsToStorage(savedConversions)
-  }, [savedConversions])
+    saveProjectsToStorage(savedProjects)
+  }, [savedProjects])
 
   //Function to save a conversion when the user clicks the save button
   //Is passed to the SettingsCard component, where the save button lives
   const handleSave = (pxValue: number, remValue: number) => {
-    setSavedConversions([...savedConversions, {pxValue, remValue}])
+    setSavedProjects(prevSavedProjects => {
+      const newSavedProjects = prevSavedProjects.map(project => {
+        if (project.id === selectedProjectId) {
+          return {
+            ...project,
+            conversions: [...project.conversions, { pxValue, remValue }]
+          }
+        } else {
+          return project
+        }
+      })
+      return newSavedProjects
+    })
   }
 
-  //Funciton to delete a conversion from state
+  //Function to delete a conversion from state
   //Is passed the index and filters out that conversion from state
   const deleteConversion = (index: number) => {
-    setSavedConversions(savedConversions.filter((conversion, i) => i !== index))
+    setSavedProjects(prevSavedProjects => {
+      const newSavedProjects = prevSavedProjects.map(project => {
+        if (project.id === selectedProjectId) {
+          return {
+            ...project,
+            conversions: project.conversions.filter((conversion, i) => i !== index)
+          }
+        } else {
+          return project
+        }
+      })
+      return newSavedProjects
+    })
   }
 
-  const savedConversionsList = savedConversions.map((conversion, index) => {
+  const createNewProject = () => {
+    const newProject: Project = {
+      id: savedProjects.length,
+      name: `Project ${savedProjects.length + 1}`,
+      conversions: []
+    }
+    setSavedProjects(prevSavedProjects => [...prevSavedProjects, newProject])
+    setSelectedProjectId(newProject.id)
+  }
+
+  //Get conversions array from the selected project and map it to a list of SavedConversion components
+  const savedConversionsList = savedProjects[selectedProjectId].conversions.map((conversion, index) => {
     return (
       <SavedConversion 
         key={index}
@@ -41,7 +81,11 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar />
+      <Sidebar
+        projects={savedProjects}
+        selectedProjectId={selectedProjectId}
+        setSelectedProjectId={setSelectedProjectId}
+      />
       <div className="content">
         <div className="settings-container">
           <SettingsCard saveConversion={handleSave} />
@@ -49,6 +93,7 @@ function App() {
         <div className="saved-container">
           <div className="saved-container-top-bar">
             <h2 className="saved-container-title">saved values</h2>
+            <button className="new-project-button" onClick={createNewProject}>new project</button>  
           </div>
           <div className="saved-container-grid">
             {savedConversionsList}

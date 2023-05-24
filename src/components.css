@@ -140,17 +140,6 @@
   font-size: 1.5rem;
 }
 
-/*** Sidebar Component Styles ***/
-.sidebar {
-  width: 11rem;
-  margin-left: 0.5rem;
-  border-right: 0.125rem solid #C66E6E;
-}
-
-.sidebar-title {
-  color: #000000BA;
-}
-
 /***  SavedConversion Components Styles ***/
 .saved-conversion {
   display: flex;
@@ -201,4 +190,32 @@
 
 .saved-conversion-delete {
   margin-left: 0.6rem;
+}
+
+/*** Sidebar Component Styles ***/
+.sidebar {
+  width: 11rem;
+  border-right: 0.125rem solid #C66E6E;
+}
+
+.sidebar-title {
+  color: #000000BA;
+  margin-left: 0.5rem;
+}
+
+/*** SidebarTab Component Styles ***/
+.sidebar-tab {
+  border-top: 0.125rem solid #C66E6E;
+  padding: 1rem 0;
+}
+
+.sidebar-tab:hover {
+  cursor: pointer;
+  background-color: #F4E6E6;
+}
+
+.sidebar-tab-title {
+  color: #000000BA;
+  margin: 0 0 0 0.5rem;
+  font-weight: 600;
 }
