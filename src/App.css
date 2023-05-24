@@ -27,22 +27,27 @@
   color: #000000BA;
 }
 
-.new-project-button {
+.project-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-button {
   background-color: #ED4747;
   color: #F6F4F3;
   border: none;
   height: 2.5rem;
-  padding: 0 1rem;
+  width: 8rem;
   font-size: 1.1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.125rem #00000040;
 }
 
-.new-project-button:hover {
+.project-button:hover {
   cursor: pointer;
 }
 
-.new-project-button:active {
+.project-button:active {
   transform: translateY(0.125rem);
   box-shadow: 0 0.0625rem 0.0625rem #00000040;
 }

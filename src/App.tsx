@@ -66,6 +66,10 @@ function App() {
     setSelectedProjectId(newProject.id)
   }
 
+  const deleteProject = (id: number) => {
+    
+  }
+
   //Get conversions array from the selected project and map it to a list of SavedConversion components
   const savedConversionsList = savedProjects[selectedProjectId].conversions.map((conversion, index) => {
     return (
@@ -93,7 +97,10 @@ function App() {
         <div className="saved-container">
           <div className="saved-container-top-bar">
             <h2 className="saved-container-title">saved values</h2>
-            <button className="new-project-button" onClick={createNewProject}>new project</button>  
+            <div className="project-buttons">
+              <button className="project-button new-project" onClick={createNewProject}>new project</button>  
+              <button className="project-button delete-project">delete project</button>
+            </div>
           </div>
           <div className="saved-container-grid">
             {savedConversionsList}
