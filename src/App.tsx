@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { RiDeleteBin4Line } from 'react-icons/ri'
 import Sidebar from './components/Sidebar'
 import SettingsCard from './components/SettingsCard'
 import SavedConversion from './components/SavedConversion'
@@ -108,7 +107,7 @@ function App() {
     return (
       <div className="delete-options">
         <button className="delete-options-confirm project-button" onClick={() => deleteProject(selectedProjectId)}>
-          <RiDeleteBin4Line color="#F6F4F3" size="1.1rem" />  confirm
+          confirm
         </button>
         <button className="delete-options-cancel" onClick={() => setShowDeleteOptions(false)}>cancel</button>
       </div>

@@ -33,7 +33,9 @@ export default function SavedConversion({pxValue, remValue, deleteConversion, in
       </div>
       <button 
         className="saved-conversion-button saved-conversion-copy"
-        onClick={() => console.log('copy')}
+        onClick={() => 
+          navigator.clipboard.writeText(selectedUnit === UNIT.PX ? `${pxValue.toString()}px` : `${remValue.toString()}rem`)
+        }
       >
         <TbClipboardText size="1.2rem" color="#F6F4F3" />
       </button>

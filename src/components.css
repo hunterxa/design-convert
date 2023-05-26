@@ -88,6 +88,7 @@
   width: 12rem;
   height: 6rem;
   border-radius: 1rem;
+  font-size: 1.5rem;
 }
 
 .settings-card-bottom-row {
@@ -196,6 +197,7 @@
 .sidebar {
   width: 11rem;
   border-right: 0.125rem solid #C66E6E;
+  border-bottom: 0.125rem solid #C66E6E;
 }
 
 .sidebar-title {
@@ -218,4 +220,104 @@
   color: #000000BA;
   margin: 0 0 0 0.5rem;
   font-weight: 600;
+}
+
+/*** Media Queries ***/
+@media (max-width: 700px) {
+  .settings-card {
+    min-width: 380px;
+    max-width: 500px;
+    height: 13rem;
+  }
+
+  .settings-card-info {
+    width: 8rem;
+    height: 4rem;
+    font-size: 1.1rem;
+  }
+
+  .value-input {
+    width: 3.5rem;
+    height: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .selected-card-unit {
+    font-size: 1.1rem;
+  }
+
+  .sidebar {
+    display: flex;
+    border-right: none;
+    width: 100%;
+    box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
+    overflow: scroll;
+  }
+
+  .sidebar-title {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .sidebar-tab {
+    border-top: none;
+    border-left: 0.125rem solid #C66E6E;
+  }
+
+  .sidebar-tab-title {
+    margin-right: 0.5rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .sidebar {
+    height: 3.5rem;
+  }
+  .sidebar-title {
+    font-size: 1rem;
+  }
+
+  .sidebar-tab-title {
+    font-size: 0.8rem;
+  }
+
+  .settings-card {
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+    padding-bottom: 1rem;
+  }
+
+  .settings-card-base-unit {
+    position: static;
+  }
+
+  .settings-card-info-display {
+    margin-top: 0;
+  }
+
+  .settings-card-info {
+    font-size: 0.8rem;
+    height: 2.5rem;
+    width: 5rem;
+  }
+
+  .value-input {
+    font-size: 0.8rem;
+    width: 2.2rem;
+    height: 1.5rem;
+  }
+
+  .selected-card-unit {
+    font-size: 0.8rem;
+  }
+
+  .settings-card-save-button {
+    margin-top: 0;
+  }
+
 }
