@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { BsArrowLeftRight } from 'react-icons/bs'
 import SelectedCard from './SelectedCard'
 import { UNIT } from '../utils/enums'

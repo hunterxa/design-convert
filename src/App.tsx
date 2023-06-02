@@ -20,6 +20,7 @@ function App() {
   //This state is used to toggle those buttons
   const [showDeleteOptions, setShowDeleteOptions] = useState<boolean>(false)
 
+  //@ts-ignore
   const [parent, enableAnimations] = useAutoAnimate<HTMLDivElement>()
 
   //Save conversions to local storage when the savedConversions state changes
@@ -53,6 +54,7 @@ function App() {
         if (project.id === selectedProjectId) {
           return {
             ...project,
+            //@ts-ignore
             conversions: project.conversions.filter((conversion, i) => i !== index)
           }
         } else {
